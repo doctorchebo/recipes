@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { NavigationService } from '../shared/navigation.service';
 
 @Component({
   selector: 'app-header',
@@ -6,9 +7,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  @Output() pageSelected = new EventEmitter<string>();
+  constructor(private navigationService: NavigationService) {}
 
   onSelectPage(page: string) {
-    this.pageSelected.emit(page);
+    this.navigationService.currentPage.emit(page);
   }
 }

@@ -8,8 +8,4 @@ import { Recipe } from './recipe.model';
 })
 export class RecipesComponent {
   currentRecipe!: Recipe;
-
-  setCurrentRecipe(recipe: Recipe) {
-    this.currentRecipe = recipe;
-  }
 }
