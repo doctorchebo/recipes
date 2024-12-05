@@ -23,4 +23,8 @@ export class ShoppingListComponent {
   addNewIngredient(ingredient: Ingredient) {
     this.shoppingListService.addIngredient(ingredient);
   }
+
+  onEditItem(index: number){
+    this.shoppingListService.editingStarted.next(index);
+  }
 }
