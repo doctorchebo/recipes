@@ -13,7 +13,7 @@ export class RecipeService {
     new Recipe(
       'Sajta de Pollo',
       'Deliciosa receta boliviana',
-      'https://upload.wikimedia.org/wikipedia/commons/9/9d/Sajta_de_pollo_Pace%C3%B1o.jpg',
+      'https://pagestudio.s3.theshoppad.net/bolivianita-de/b542b9847ad42312091ff20293110d7a.jpg',
       [new Ingredient('Pollo', 1), new Ingredient('Arroz', 500)]
     ),
     new Recipe(
@@ -40,11 +40,21 @@ export class RecipeService {
 
   addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
-    this.recipesChanged.next(this.recipes.slice());
+    this.triggerChange();
   }
 
   updateRecipe(index: number, recipe: Recipe) {
     this.recipes[index] = recipe;
+    this.triggerChange();
+  }
+
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+    this.triggerChange();
+  }
+
+  triggerChange() {
+    console.log(this.recipes)
     this.recipesChanged.next(this.recipes.slice());
   }
 }

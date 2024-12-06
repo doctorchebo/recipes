@@ -1,7 +1,13 @@
 <div class="row">
   <div class="col-xs-12">
-    <button class="btn btn-success" [disabled]="!recipeForm.valid" (click)="onSubmit()">Save</button>
-    <button class="btn btn-danger">Cancel</button>
+    <button
+      class="btn btn-success"
+      [disabled]="!recipeForm.valid"
+      (click)="onSubmit()"
+    >
+      Save
+    </button>
+    <button class="btn btn-danger" (click)="onCancel()">Cancel</button>
   </div>
 </div>
 <div class="row">
@@ -17,16 +23,17 @@
         />
       </div>
       <div class="form-group">
-        <img src="" alt="" class="img-responsive" />
-      </div>
-      <div class="form-group">
         <label for="imageURL">ImageURL</label>
         <input
           id="imageURL"
           type="text"
           class="form-control"
-          formControlName="imageUrl"
+          formControlName="imagePath"
+          #imgUrl
         />
+      </div>
+      <div class="form-group">
+        <img [src]="imgUrl.value" alt="" class="img-responsive" />
       </div>
       <div class="form-group">
         <label for="description">Description</label>
@@ -66,7 +73,7 @@
                 />
               </div>
               <div class="col-xs-2">
-                <button class="btn btn-danger">X</button>
+                <button class="btn btn-danger" type="button" (click)="onDeleteIndredient(i)">X</button>
               </div>
             </div>
           </div>

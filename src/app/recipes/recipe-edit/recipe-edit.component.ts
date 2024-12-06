@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 
 @Component({
@@ -11,7 +11,8 @@ import { RecipeService } from '../recipe.service';
 export class RecipeEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private recipesService: RecipeService
+    private recipesService: RecipeService,
+    private router: Router
   ) {}
   id!: number;
   editMode: boolean = false;
@@ -27,13 +28,13 @@ export class RecipeEditComponent implements OnInit {
 
   initForm() {
     let name = '';
-    let imageUrl = '';
+    let imagePath = '';
     let description = '';
     let recipeIngredients = new FormArray<FormGroup>([]);
     if (this.editMode) {
       const recipe = this.recipesService.getRecipe(this.id);
       name = recipe.name;
-      imageUrl = recipe.imagePath;
+      imagePath = recipe.imagePath;
       description = recipe.description;
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
@@ -51,7 +52,7 @@ export class RecipeEditComponent implements OnInit {
     }
     this.recipeForm = new FormGroup({
       name: new FormControl(name, Validators.required),
-      imageUrl: new FormControl(imageUrl, Validators.required),
+      imagePath: new FormControl(imagePath, Validators.required),
       description: new FormControl(description, Validators.required),
       ingredients: recipeIngredients,
     });
@@ -77,5 +78,14 @@ export class RecipeEditComponent implements OnInit {
     } else {
       this.recipesService.addRecipe(this.recipeForm.value);
     }
+    this.router.navigate(['/recipes']);
+  }
+
+  onCancel() {
+    this.router.navigate(['/recipes']);
+  }
+
+  onDeleteIndredient(index: number) {
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
   }
 }
