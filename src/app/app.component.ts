@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataStoreService } from './shared/data-store.service';
 import { NavigationService } from './shared/navigation.service';
 
 @Component({
@@ -8,7 +9,9 @@ import { NavigationService } from './shared/navigation.service';
 })
 export class AppComponent implements OnInit {
   selectedPage: string = 'recipe';
-  constructor(private navigationService: NavigationService) {}
+  constructor(
+    private navigationService: NavigationService,
+  ) {}
   ngOnInit() {
     this.navigationService.currentPage.subscribe((page: string) => {
       this.selectedPage = page;

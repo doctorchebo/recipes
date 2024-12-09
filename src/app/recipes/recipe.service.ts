@@ -9,22 +9,29 @@ export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
   ingredientsSentToShoppingList = new EventEmitter<Ingredient[]>();
   selectedRecipe = new EventEmitter<Recipe>();
-  recipes: Recipe[] = [
-    new Recipe(
-      'Sajta de Pollo',
-      'Deliciosa receta boliviana',
-      'https://pagestudio.s3.theshoppad.net/bolivianita-de/b542b9847ad42312091ff20293110d7a.jpg',
-      [new Ingredient('Pollo', 1), new Ingredient('Arroz', 500)]
-    ),
-    new Recipe(
-      'Pique macho',
-      'Plato tipico de Cochabamba para 8 personas',
-      'https://www.cochabamba2018.bo/wp-content/uploads/2024/07/pique-Bolivia-1-715x400.jpg',
-      [new Ingredient('Carne', 2), new Ingredient('Papa Frita', 50)]
-    ),
-  ];
+  // recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Sajta de Pollo',
+  //     'Deliciosa receta boliviana',
+  //     'https://pagestudio.s3.theshoppad.net/bolivianita-de/b542b9847ad42312091ff20293110d7a.jpg',
+  //     [new Ingredient('Pollo', 1), new Ingredient('Arroz', 500)]
+  //   ),
+  //   new Recipe(
+  //     'Pique macho',
+  //     'Plato tipico de Cochabamba para 8 personas',
+  //     'https://www.cochabamba2018.bo/wp-content/uploads/2024/07/pique-Bolivia-1-715x400.jpg',
+  //     [new Ingredient('Carne', 2), new Ingredient('Papa Frita', 50)]
+  //   ),
+  // ];
+
+  recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();
@@ -54,7 +61,7 @@ export class RecipeService {
   }
 
   triggerChange() {
-    console.log(this.recipes)
+    console.log(this.recipes);
     this.recipesChanged.next(this.recipes.slice());
   }
 }

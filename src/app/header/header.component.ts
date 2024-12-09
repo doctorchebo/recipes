@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataStoreService } from '../shared/data-store.service';
 import { NavigationService } from '../shared/navigation.service';
 
 @Component({
@@ -7,9 +8,20 @@ import { NavigationService } from '../shared/navigation.service';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  constructor(private navigationService: NavigationService) {}
+  constructor(
+    private navigationService: NavigationService,
+    private dataStoreService: DataStoreService
+  ) {}
 
   onSelectPage(page: string) {
     this.navigationService.currentPage.emit(page);
+  }
+
+  onSaveData() {
+    this.dataStoreService.storeData();
+  }
+
+  onFetchData() {
+    this.dataStoreService.fetchData().subscribe();
   }
 }
