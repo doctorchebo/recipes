@@ -4,59 +4,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 
-import {
-  HTTP_INTERCEPTORS,
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AuthComponent } from './auth/auth.component';
-import { RecipeService } from './recipes/recipe.service';
+import { CoreModule } from './core.module';
 import { RecipesModule } from './recipes/recipes.module';
-import { AlertComponent } from './shared/alert/alert.component';
-import { DropdownDirective } from './shared/dropdown.directive';
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
-import { NavigationService } from './shared/navigation.service';
-import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingListService } from './shopping-list/shopping-list.service';
+import { SharedModule } from './shared/shared.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-
-    ShoppingListComponent,
-    ShoppingEditComponent,
-    ShoppingEditComponent,
-    DropdownDirective,
-
-    AuthComponent,
-    LoadingSpinnerComponent,
-    AlertComponent,
-    PlaceholderDirective,
-  ],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
     RecipesModule,
+    ShoppingListModule,
+    SharedModule,
+    CoreModule,
+    AuthModule
   ],
-  providers: [
-    NavigationService,
-    ShoppingListService,
-    RecipeService,
-    provideHttpClient(withInterceptorsFromDi()),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true,
-    },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
