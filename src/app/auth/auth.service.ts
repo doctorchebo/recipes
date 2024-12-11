@@ -54,6 +54,20 @@ export class AuthService {
     this.router.navigate(['/auth']);
   }
 
+  autoLogin() {
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _expiresAt: string;
+    } = JSON.parse(localStorage.getItem('userData')!);
+    if (!userData) {
+      return;
+    }
+    const user = new User(userData.email, userData.id, userData._token, new Date(userData._expiresAt))
+    this.user.next(user);
+  }
+
   private handleAuthentication(
     email: string,
     userId: string,
@@ -63,6 +77,7 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate);
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   private handleError(errorResponse: HttpErrorResponse) {

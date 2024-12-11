@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataStoreService } from './shared/data-store.service';
-import { NavigationService } from './shared/navigation.service';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +7,8 @@ import { NavigationService } from './shared/navigation.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  selectedPage: string = 'recipe';
-  constructor(
-    private navigationService: NavigationService,
-  ) {}
+  constructor(private authService: AuthService) {}
   ngOnInit() {
-    this.navigationService.currentPage.subscribe((page: string) => {
-      this.selectedPage = page;
-    });
+    this.authService.autoLogin();
   }
 }
