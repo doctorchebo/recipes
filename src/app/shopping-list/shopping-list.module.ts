@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
 import { ShoppingListRoutingModule } from './shopping-list-routing.module';
 import { ShoppingListComponent } from './shopping-list.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { ShoppingListComponent } from './shopping-list.component';
     ShoppingEditComponent,
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     SharedModule,
     FormsModule,
     ShoppingListRoutingModule,

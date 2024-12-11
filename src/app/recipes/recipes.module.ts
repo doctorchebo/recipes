@@ -22,7 +22,7 @@ import { BrowserModule } from '@angular/platform-browser';
     RecipeEditComponent,
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     RouterModule,
     SharedModule,
     ReactiveFormsModule,
