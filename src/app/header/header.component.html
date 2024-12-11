@@ -15,8 +15,8 @@
           <li [routerLinkActive]="'active'">
             <a routerLink="/shopping-list">Shopping List</a>
           </li>
-          <li [routerLinkActive]="'active'" *ngIf="isAuthenticated">
-            <a routerLink="/logout">Logout</a>
+          <li [routerLinkActive]="'active'" *ngIf="isAuthenticated" (click)="onLogout()">
+            <a>Logout</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="isAuthenticated">
