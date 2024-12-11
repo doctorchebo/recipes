@@ -15,7 +15,7 @@ export class AuthComponent implements OnDestroy {
   isLoginMode: boolean = false;
   isLoading: boolean = false;
   error: string | null = null;
-  hostAlertSub!: Subscription
+  closeSub!: Subscription
   @ViewChild(PlaceholderDirective) hostAlert! : PlaceholderDirective
 
   onSwitchMode() {
@@ -64,13 +64,15 @@ export class AuthComponent implements OnDestroy {
     const hostAlertContainerRef = this.hostAlert.viewContainerRef
     const hostAlertComponentRef = hostAlertContainerRef.createComponent(AlertComponent)
     hostAlertComponentRef.instance.message = message;
-    this.hostAlertSub = hostAlertComponentRef.instance.close.subscribe(()=> {
-      this.hostAlertSub.unsubscribe();
+    this.closeSub = hostAlertComponentRef.instance.close.subscribe(()=> {
+      this.closeSub.unsubscribe();
       hostAlertContainerRef.clear();
     })
 
   }
   ngOnDestroy(){
-    this.hostAlertSub.unsubscribe();
+    if(this.closeSub){
+      this.closeSub.unsubscribe();
+    }
   }
 }
