@@ -19,6 +19,7 @@ const apiKey = environment.apiKey;
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user = new BehaviorSubject<User | null>(null);
+  expirationTimer: any = null;
   constructor(private http: HttpClient, private router: Router) {}
 
   signup(email: string, password: string) {
@@ -64,8 +65,22 @@ export class AuthService {
     if (!userData) {
       return;
     }
-    const user = new User(userData.email, userData.id, userData._token, new Date(userData._expiresAt))
+    const user = new User(
+      userData.email,
+      userData.id,
+      userData._token,
+      new Date(userData._expiresAt)
+    );
     this.user.next(user);
+    const expirationDuration =
+      new Date(userData._expiresAt).getTime() - new Date().getTime();
+    this.autoLogout(expirationDuration);
+  }
+
+  autoLogout(expirationDuration: number) {
+    this.expirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration);
   }
 
   private handleAuthentication(
@@ -78,6 +93,7 @@ export class AuthService {
     const user = new User(email, userId, token, expirationDate);
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
+    this.autoLogout(expiresIn * 1000);
   }
 
   private handleError(errorResponse: HttpErrorResponse) {
