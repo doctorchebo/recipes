@@ -1,7 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { AppState } from '../shopping-list/store';
+import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
 import { Recipe } from './recipe.model';
 
 @Injectable()
@@ -9,24 +11,12 @@ export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
   ingredientsSentToShoppingList = new EventEmitter<Ingredient[]>();
   selectedRecipe = new EventEmitter<Recipe>();
-  // recipes: Recipe[] = [
-  //   new Recipe(
-  //     'Sajta de Pollo',
-  //     'Deliciosa receta boliviana',
-  //     'https://pagestudio.s3.theshoppad.net/bolivianita-de/b542b9847ad42312091ff20293110d7a.jpg',
-  //     [new Ingredient('Pollo', 1), new Ingredient('Arroz', 500)]
-  //   ),
-  //   new Recipe(
-  //     'Pique macho',
-  //     'Plato tipico de Cochabamba para 8 personas',
-  //     'https://www.cochabamba2018.bo/wp-content/uploads/2024/07/pique-Bolivia-1-715x400.jpg',
-  //     [new Ingredient('Carne', 2), new Ingredient('Papa Frita', 50)]
-  //   ),
-  // ];
 
   recipes: Recipe[] = [];
 
-  constructor(private shoppingListService: ShoppingListService) {}
+  constructor(
+    private store: Store<{ shoppingList: AppState }>
+  ) {}
 
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
@@ -42,7 +32,8 @@ export class RecipeService {
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
-    this.shoppingListService.addIngredients(ingredients);
+    // this.shoppingListService.addIngredients(ingredients);
+    this.store.dispatch(new ShoppingListActions.AddIngredients(ingredients));
   }
 
   addRecipe(recipe: Recipe) {

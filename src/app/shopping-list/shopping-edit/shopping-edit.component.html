@@ -35,7 +35,7 @@
             class="btn btn-danger"
             type="button"
             (click)="onDelete()"
-            [disabled]="editedIngredientIndex == null"
+            [disabled]="editedIngredient == null"
             *ngIf="editMode"
           >
             Delete
