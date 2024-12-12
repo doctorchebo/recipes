@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
-import { AppState } from './store';
-import { ShoppingListState } from './store/shopping-list.reducer';
+import { AppState } from '../store/app.reducer';
+import { State } from './store/shopping-list.reducer';
 
 @Component({
   selector: 'app-shopping-list',
@@ -12,7 +12,7 @@ import { ShoppingListState } from './store/shopping-list.reducer';
   styleUrl: './shopping-list.component.css',
 })
 export class ShoppingListComponent {
-  ingredients!: Observable<ShoppingListState>;
+  ingredients!: Observable<State>;
 
   constructor(private store: Store<AppState>) {}
 

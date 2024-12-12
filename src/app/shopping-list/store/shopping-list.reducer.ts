@@ -1,17 +1,17 @@
 import { Ingredient } from '../../shared/ingredient.model';
 import * as ShoppingListActions from './shopping-list.actions';
-export interface ShoppingListState {
+export interface State {
   ingredients: Ingredient[];
   editedIngredient: Ingredient | null;
   editedIngredientIndex: number;
 }
 
-const initialState: ShoppingListState = {
+const initialState: State = {
   ingredients: [new Ingredient('Apples', 5), new Ingredient('Bananas', 10)],
   editedIngredient: null,
   editedIngredientIndex: -1,
 };
-export function ShoppingListReducer(
+export function shoppingListReducer(
   state = initialState,
   action: ShoppingListActions.ShoppingListActions
 ) {
@@ -34,8 +34,8 @@ export function ShoppingListReducer(
       };
       // making copy of ingredients array
       const updatedIngredients = [...state.ingredients];
-      // updating ingredient 
-      updatedIngredients[state.editedIngredientIndex] = updatedIngredient
+      // updating ingredient
+      updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
       return {
         ...state,
         ingredients: updatedIngredients,

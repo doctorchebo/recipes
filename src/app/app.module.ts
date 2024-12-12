@@ -9,7 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core.module';
 import { SharedModule } from './shared/shared.module';
-import { reducers } from './shopping-list/store';
+import { appReducer } from './store/app.reducer';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -18,7 +18,7 @@ import { reducers } from './shopping-list/store';
     AppRoutingModule,
     SharedModule,
     CoreModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(appReducer),
   ],
   providers: [CommonModule],
   bootstrap: [AppComponent],
