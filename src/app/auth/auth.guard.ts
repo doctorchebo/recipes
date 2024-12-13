@@ -9,14 +9,14 @@ import {
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, take } from 'rxjs';
-import * as fromAppReducer from '../store/app.reducer';
+import * as fromApp from '../store/app.reducer';
 import { AuthService } from './auth.service';
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private store: Store<fromAppReducer.AppState>
+    private store: Store<fromApp.AppState>
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,

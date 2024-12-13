@@ -4,7 +4,11 @@
     <p>{{ error }}</p>
     <button class="btn btn-danger" (click)="onClearError()">Ok</button>
   </div> -->
-  <!-- <app-alert *ngIf="error" [message]="error" (close)="handleError()"></app-alert> -->
+  <app-alert
+    *ngIf="error"
+    [message]="error"
+    (close)="onClearError()"
+  ></app-alert>
   <div *ngIf="isLoading" style="text-align: center">
     <app-loading-spinner></app-loading-spinner>
   </div>
