@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,6 +17,7 @@ import { SharedModule } from './shared/shared.module';
 import { appReducer } from './store/app.reducer';
 import { RecipesEffects } from './recipes/store/recipes.effects';
 
+
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
@@ -28,8 +29,9 @@ import { RecipesEffects } from './recipes/store/recipes.effects';
     EffectsModule.forRoot([AuthEffects, RecipesEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
+    
   ],
-  providers: [CommonModule],
+  providers: [CommonModule, provideClientHydration()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
