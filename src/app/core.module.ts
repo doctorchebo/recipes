@@ -5,13 +5,11 @@ import {
 } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { RecipeService } from './recipes/recipe.service';
 import { NavigationService } from './shared/navigation.service';
 
 @NgModule({
   providers: [
     NavigationService,
-    RecipeService,
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,
